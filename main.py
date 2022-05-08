@@ -47,7 +47,7 @@ async def handler(message: Message) -> str:
             nc_audio.export(f"out{from_id}.mp3")
             os.remove(f"pre{from_id}.mp3")
 
-            water_mark = "" if is_sharer(from_id) else " [nrm]"
+            water_mark = "" if is_sharer(from_id) else WATERMARK
             response = await AudioUploader(user, generate_attachment_strings=False).upload(attachment.audio.artist.lower(), f"{attachment.audio.title}{water_mark}".lower(), f"out{from_id}.mp3")
             r = await user.request("audio.add", {"audio_id": response["id"], "owner_id": response["owner_id"], "group_id": GROUP_ID})
             await message.answer(f"ваш найткор!", attachment=f"audio{GROUP_ID*-1}_{r['response']}")
