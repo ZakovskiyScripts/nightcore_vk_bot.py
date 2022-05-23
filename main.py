@@ -16,9 +16,8 @@ async def repost_checker() -> None:
     reposts = await user.request("wall.getReposts", {"owner_id": GROUP_ID*-1, "post_id": REPOST_POST_ID, "count": 1000})
 
     for repost in reposts["response"]["items"]:
-        if repost["from_id"] < 0:
-            continue
-        sharers.append(repost["from_id"])
+        if repost["from_id"] > 0:
+            sharers.append(repost["from_id"])
 
 def is_sharer(user_id: int) -> bool:
     for sharer in sharers:
