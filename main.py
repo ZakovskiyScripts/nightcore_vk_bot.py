@@ -58,9 +58,7 @@ async def handler(message: Message) -> str:
 async def handler_reposts(data: dict):
     if data["object"]["copy_history"][0] == REPOST_POST_ID:
         user_id = data["object"]["from_id"]
-        if user_id < 0:
-            return
-        if not is_sharer(user_id):
+        if not is_sharer(user_id) and user_id > 0:
             sharers.append(sharer)
 
 bot.run_forever()
